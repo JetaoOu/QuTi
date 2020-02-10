@@ -1,0 +1,480 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.myproject.dao.userMapper">
+  <resultMap id="BaseResultMap" type="com.myproject.pojo.user">
+    <id column="userID" jdbcType="VARCHAR" property="userid" />
+    <result column="icon" jdbcType="VARCHAR" property="icon" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="nickname" jdbcType="VARCHAR" property="nickname" />
+    <result column="major" jdbcType="VARCHAR" property="major" />
+    <result column="studentNumber" jdbcType="VARCHAR" property="studentnumber" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="sex" jdbcType="BIT" property="sex" />
+    <result column="graduationYear" jdbcType="VARCHAR" property="graduationyear" />
+    <result column="correspondenceAddress" jdbcType="VARCHAR" property="correspondenceaddress" />
+    <result column="weChat" jdbcType="VARCHAR" property="wechat" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="QQnumber" jdbcType="VARCHAR" property="qqnumber" />
+    <result column="graduationPlane" jdbcType="VARCHAR" property="graduationplane" />
+    <result column="graduationPlaneSituation" jdbcType="VARCHAR" property="graduationplanesituation" />
+    <result column="canLogin" jdbcType="BIT" property="canlogin" />
+    <result column="userTypeNum" jdbcType="VARCHAR" property="usertypenum" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="saveTime" jdbcType="TIMESTAMP" property="savetime" />
+    <result column="changeTime" jdbcType="TIMESTAMP" property="changetime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    userID, icon, username, password, nickname, major, studentNumber, name, sex, graduationYear, 
+    correspondenceAddress, weChat, phone, email, QQnumber, graduationPlane, graduationPlaneSituation, 
+    canLogin, userTypeNum, remark, saveTime, changeTime
+  </sql>
+  <select id="selectByExample" parameterType="com.myproject.pojo.userExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from user
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    where userID = #{userid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from user
+    where userID = #{userid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.myproject.pojo.userExample">
+    delete from user
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.myproject.pojo.user">
+    insert into user (userID, icon, username, 
+      password, nickname, major, 
+      studentNumber, name, sex, 
+      graduationYear, correspondenceAddress, 
+      weChat, phone, email, 
+      QQnumber, graduationPlane, graduationPlaneSituation, 
+      canLogin, userTypeNum, remark, 
+      saveTime, changeTime)
+    values (#{userid,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, #{major,jdbcType=VARCHAR}, 
+      #{studentnumber,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{sex,jdbcType=BIT}, 
+      #{graduationyear,jdbcType=VARCHAR}, #{correspondenceaddress,jdbcType=VARCHAR}, 
+      #{wechat,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+      #{qqnumber,jdbcType=VARCHAR}, #{graduationplane,jdbcType=VARCHAR}, #{graduationplanesituation,jdbcType=VARCHAR}, 
+      #{canlogin,jdbcType=BIT}, #{usertypenum,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{savetime,jdbcType=TIMESTAMP}, #{changetime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.myproject.pojo.user">
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userid != null">
+        userID,
+      </if>
+      <if test="icon != null">
+        icon,
+      </if>
+      <if test="username != null">
+        username,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="nickname != null">
+        nickname,
+      </if>
+      <if test="major != null">
+        major,
+      </if>
+      <if test="studentnumber != null">
+        studentNumber,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="sex != null">
+        sex,
+      </if>
+      <if test="graduationyear != null">
+        graduationYear,
+      </if>
+      <if test="correspondenceaddress != null">
+        correspondenceAddress,
+      </if>
+      <if test="wechat != null">
+        weChat,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="qqnumber != null">
+        QQnumber,
+      </if>
+      <if test="graduationplane != null">
+        graduationPlane,
+      </if>
+      <if test="graduationplanesituation != null">
+        graduationPlaneSituation,
+      </if>
+      <if test="canlogin != null">
+        canLogin,
+      </if>
+      <if test="usertypenum != null">
+        userTypeNum,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="savetime != null">
+        saveTime,
+      </if>
+      <if test="changetime != null">
+        changeTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userid != null">
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="icon != null">
+        #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null">
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="major != null">
+        #{major,jdbcType=VARCHAR},
+      </if>
+      <if test="studentnumber != null">
+        #{studentnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=BIT},
+      </if>
+      <if test="graduationyear != null">
+        #{graduationyear,jdbcType=VARCHAR},
+      </if>
+      <if test="correspondenceaddress != null">
+        #{correspondenceaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="wechat != null">
+        #{wechat,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="qqnumber != null">
+        #{qqnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="graduationplane != null">
+        #{graduationplane,jdbcType=VARCHAR},
+      </if>
+      <if test="graduationplanesituation != null">
+        #{graduationplanesituation,jdbcType=VARCHAR},
+      </if>
+      <if test="canlogin != null">
+        #{canlogin,jdbcType=BIT},
+      </if>
+      <if test="usertypenum != null">
+        #{usertypenum,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="savetime != null">
+        #{savetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="changetime != null">
+        #{changetime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.myproject.pojo.userExample" resultType="java.lang.Long">
+    select count(*) from user
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update user
+    <set>
+      <if test="record.userid != null">
+        userID = #{record.userid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.icon != null">
+        icon = #{record.icon,jdbcType=VARCHAR},
+      </if>
+      <if test="record.username != null">
+        username = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="record.password != null">
+        password = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nickname != null">
+        nickname = #{record.nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.major != null">
+        major = #{record.major,jdbcType=VARCHAR},
+      </if>
+      <if test="record.studentnumber != null">
+        studentNumber = #{record.studentnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sex != null">
+        sex = #{record.sex,jdbcType=BIT},
+      </if>
+      <if test="record.graduationyear != null">
+        graduationYear = #{record.graduationyear,jdbcType=VARCHAR},
+      </if>
+      <if test="record.correspondenceaddress != null">
+        correspondenceAddress = #{record.correspondenceaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wechat != null">
+        weChat = #{record.wechat,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phone != null">
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null">
+        email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.qqnumber != null">
+        QQnumber = #{record.qqnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.graduationplane != null">
+        graduationPlane = #{record.graduationplane,jdbcType=VARCHAR},
+      </if>
+      <if test="record.graduationplanesituation != null">
+        graduationPlaneSituation = #{record.graduationplanesituation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.canlogin != null">
+        canLogin = #{record.canlogin,jdbcType=BIT},
+      </if>
+      <if test="record.usertypenum != null">
+        userTypeNum = #{record.usertypenum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null">
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.savetime != null">
+        saveTime = #{record.savetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.changetime != null">
+        changeTime = #{record.changetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update user
+    set userID = #{record.userid,jdbcType=VARCHAR},
+      icon = #{record.icon,jdbcType=VARCHAR},
+      username = #{record.username,jdbcType=VARCHAR},
+      password = #{record.password,jdbcType=VARCHAR},
+      nickname = #{record.nickname,jdbcType=VARCHAR},
+      major = #{record.major,jdbcType=VARCHAR},
+      studentNumber = #{record.studentnumber,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      sex = #{record.sex,jdbcType=BIT},
+      graduationYear = #{record.graduationyear,jdbcType=VARCHAR},
+      correspondenceAddress = #{record.correspondenceaddress,jdbcType=VARCHAR},
+      weChat = #{record.wechat,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      email = #{record.email,jdbcType=VARCHAR},
+      QQnumber = #{record.qqnumber,jdbcType=VARCHAR},
+      graduationPlane = #{record.graduationplane,jdbcType=VARCHAR},
+      graduationPlaneSituation = #{record.graduationplanesituation,jdbcType=VARCHAR},
+      canLogin = #{record.canlogin,jdbcType=BIT},
+      userTypeNum = #{record.usertypenum,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      saveTime = #{record.savetime,jdbcType=TIMESTAMP},
+      changeTime = #{record.changetime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.myproject.pojo.user">
+    update user
+    <set>
+      <if test="icon != null">
+        icon = #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null">
+        nickname = #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="major != null">
+        major = #{major,jdbcType=VARCHAR},
+      </if>
+      <if test="studentnumber != null">
+        studentNumber = #{studentnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=BIT},
+      </if>
+      <if test="graduationyear != null">
+        graduationYear = #{graduationyear,jdbcType=VARCHAR},
+      </if>
+      <if test="correspondenceaddress != null">
+        correspondenceAddress = #{correspondenceaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="wechat != null">
+        weChat = #{wechat,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="qqnumber != null">
+        QQnumber = #{qqnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="graduationplane != null">
+        graduationPlane = #{graduationplane,jdbcType=VARCHAR},
+      </if>
+      <if test="graduationplanesituation != null">
+        graduationPlaneSituation = #{graduationplanesituation,jdbcType=VARCHAR},
+      </if>
+      <if test="canlogin != null">
+        canLogin = #{canlogin,jdbcType=BIT},
+      </if>
+      <if test="usertypenum != null">
+        userTypeNum = #{usertypenum,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="savetime != null">
+        saveTime = #{savetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="changetime != null">
+        changeTime = #{changetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where userID = #{userid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.myproject.pojo.user">
+    update user
+    set icon = #{icon,jdbcType=VARCHAR},
+      username = #{username,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      nickname = #{nickname,jdbcType=VARCHAR},
+      major = #{major,jdbcType=VARCHAR},
+      studentNumber = #{studentnumber,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=BIT},
+      graduationYear = #{graduationyear,jdbcType=VARCHAR},
+      correspondenceAddress = #{correspondenceaddress,jdbcType=VARCHAR},
+      weChat = #{wechat,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      QQnumber = #{qqnumber,jdbcType=VARCHAR},
+      graduationPlane = #{graduationplane,jdbcType=VARCHAR},
+      graduationPlaneSituation = #{graduationplanesituation,jdbcType=VARCHAR},
+      canLogin = #{canlogin,jdbcType=BIT},
+      userTypeNum = #{usertypenum,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      saveTime = #{savetime,jdbcType=TIMESTAMP},
+      changeTime = #{changetime,jdbcType=TIMESTAMP}
+    where userID = #{userid,jdbcType=VARCHAR}
+  </update>
+</mapper>
