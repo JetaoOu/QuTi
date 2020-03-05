@@ -1,6 +1,7 @@
 package com.myproject.pojo;
 
 import java.util.Date;
+import java.util.List;
 
 import com.myproject.entiy.BaseEntity;
 
@@ -16,8 +17,18 @@ public class ques extends BaseEntity{
     private Integer site;
 
     private String naireid;
+    
+    private List<options> options;
 
-    public String getQuesid() {
+    public List<options> getOptions() {
+		return options;
+	}
+
+	public void setOptions(List<options> options) {
+		this.options = options;
+	}
+
+	public String getQuesid() {
         return quesid;
     }
 

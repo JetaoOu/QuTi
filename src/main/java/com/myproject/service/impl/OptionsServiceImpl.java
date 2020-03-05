@@ -10,6 +10,7 @@ import com.myproject.dao.optionsMapper;
 import com.myproject.entiy.PageResult;
 import com.myproject.pojo.options;
 import com.myproject.pojo.optionsExample;
+import com.myproject.pojo.quesExample;
 import com.myproject.pojo.optionsExample.Criteria;
 import com.myproject.service.OptionsService;
 
@@ -68,6 +69,15 @@ public class OptionsServiceImpl implements OptionsService {
 	public options findOne(String id){
 		return optionsMapper.selectByPrimaryKey(id);
 	}
+	
+	@Override
+	public List<options> findOption(String questionid){
+		optionsExample example = new optionsExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andQuestionidEqualTo(questionid);
+		return optionsMapper.selectByExample(example);
+	}
+
 
 	/**
 	 * 批量删除

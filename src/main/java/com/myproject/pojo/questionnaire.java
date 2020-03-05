@@ -1,6 +1,7 @@
 package com.myproject.pojo;
 
 import java.util.Date;
+import java.util.List;
 
 import com.myproject.entiy.BaseEntity;
 
@@ -24,8 +25,18 @@ public class questionnaire extends BaseEntity{
     private Date cutofftime;
 
     private String status;
+    
+    private List<question> questions;
 
-    public String getQuestionnaireid() {
+    public List<question> getQuestions() {
+		return questions;
+	}
+
+	public void setQuestions(List<question> questions) {
+		this.questions = questions;
+	}
+
+	public String getQuestionnaireid() {
         return questionnaireid;
     }
 

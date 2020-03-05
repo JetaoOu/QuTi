@@ -19,9 +19,19 @@ public class question extends BaseEntity{
     private String naireid;
     
     private List<ques> quess;
+    
+    private List<options> options;
 
 
-    public List<ques> getQuess() {
+    public List<options> getOptions() {
+		return options;
+	}
+
+	public void setOptions(List<options> options) {
+		this.options = options;
+	}
+
+	public List<ques> getQuess() {
 		return quess;
 	}
 

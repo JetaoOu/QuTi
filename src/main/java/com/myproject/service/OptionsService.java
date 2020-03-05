@@ -57,5 +57,8 @@ public interface OptionsService {
 	 * @return
 	 */
 	public PageResult findPage(options options, int pageNum,int pageSize);
+
+
+	public List<options> findOption(String questionid);
 	
 }

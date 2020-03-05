@@ -1,9 +1,19 @@
 package com.myproject.controller;
 
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import javax.activation.MimetypesFileTypeMap;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -20,6 +30,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.myproject.service.AnswerService;
 import com.myproject.service.UserService;
+import com.myproject.utils.CreatUUID;
 import com.myproject.utils.UploadUtitls;
 
 
@@ -287,6 +298,64 @@ public class UploadController {
 //	        }
 //		}
 //	
+	
+	@RequestMapping("/download")
+	public void download(HttpServletRequest request,HttpServletResponse response) {
+		  try {
+			  
+		    String templateFolder = "E:\\eclipseProject\\myproject-questionnaire\\src\\test\\java\\test";
+//			  File directory = new File("src\\test\\java\\test");
+//				directory.getCanonicalPath(); //得到的是C:/test 
+//				directory.getAbsolutePath();//得到的是C:/test/. 
+//		    String templateFolder = directory.getCanonicalPath();
+
+				ArrayList<String> testList = new ArrayList<String>();
+				testList.add("1.人文社会科学素养、良好职业规范");
+				testList.add("2.数学和其他自然科学知识的应用能力");
+				testList.add("3.计算思维能力");
+				testList.add("4.算法设计与程序实现能力");
+				testList.add("5.计算机应用设计与开发能力");
+				testList.add("6.信息工程项目集成与管理能力");
+				testList.add("7.团队合作与沟通能力");
+				testList.add("8.外文应用与跨文化交流能力");
+				
+				 System.out.println(templateFolder);
+				String ftlName = "模板.ftl";
+				HashMap<String, Object> map = new HashMap<>();
+				map.put("title", "2019届（2015级）毕业生调查问卷结果");
+				map.put("contents", testList);
+				String root = templateFolder;
+				String title = "test1";
+				//  注意这里的参数，根据你自己业务出入，参数说明上面已经注明！
+		        String downLoadPath = CreatUUID.exportWord(templateFolder,ftlName,map,root,title);
+		        String fileName = map.get("title").toString();
+
+
+		        File file = new File(downLoadPath);	
+		        InputStream inputStream;
+		        inputStream = new BufferedInputStream(new FileInputStream(file));
+		        System.out.println("aaaa");
+	            //通过response将目标文件写到客户端
+	            OutputStream out = response.getOutputStream();	 
+	            // 写文件
+	            int b;
+	            while ((b = inputStream.read()) != -1) {
+	                out.write(b);
+	            }	 
+	            inputStream.close();
+	            out.close();
+	            System.out.println("ssss");
+	         } catch (Exception e) {
+	            try {
+	                response.sendRedirect("/error/error.jsp");
+	            } catch (IOException e1) {
+	                e1.printStackTrace();
+	            }
+	            e.printStackTrace();
+	        }
+		}
+	
+	
 	@SuppressWarnings("deprecation")
     public static void getDataFromExcel(String filePath) {
         FileInputStream fis = null;

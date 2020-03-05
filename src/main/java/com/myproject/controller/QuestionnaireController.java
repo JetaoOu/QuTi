@@ -1,4 +1,5 @@
 package com.myproject.controller;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -11,11 +12,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.myproject.entiy.PageResult;
 import com.myproject.entiy.QuestionnaireNum;
 import com.myproject.entiy.Result;
-import com.myproject.entiy.quData;
+import com.myproject.pojo.options;
 import com.myproject.pojo.ques;
 import com.myproject.pojo.question;
 import com.myproject.pojo.questionnaire;
 import com.myproject.pojo.user;
+import com.myproject.service.OptionsService;
 import com.myproject.service.QuesService;
 import com.myproject.service.QuestionService;
 import com.myproject.service.QuestionnaireService;
@@ -38,6 +40,9 @@ public class QuestionnaireController {
 	
 	@Autowired
 	private QuesService quesService;
+	
+	@Autowired
+	private OptionsService optionsService;
 	
 	/**
 	 * 返回全部列表
@@ -81,32 +86,44 @@ public class QuestionnaireController {
 	 * @return
 	 */
 	@RequestMapping("/get")
-	public quData get(String id){
-		System.out.println(id);
-
+	public questionnaire get(String id){
 		questionnaire questionnaire = questionnaireService.findOne(id);	
 		List<question> questions = questionService.findQuestions(id);
 		for(question item : questions) {
 			if(item.getType().equals("score")) {
 				item.setQuess(quesService.findQuess(item.getQuestionid()));
 			}
-		}
+		}	
+		questionnaire.setQuestions(questions);
+	
+		return questionnaire;
+	}
+	
+	
+	/**
+	 * 获取
+	 * @param questionnaire
+	 * @return
+	 */
+	@RequestMapping("/getDetail")
+	public questionnaire getDetail(String id){
+		questionnaire questionnaire = questionnaireService.findOne(id);	
+		List<question> questions = questionService.findQuestions(id);
 		
-		quData quData = new quData();
-		quData.setQuestionnaireid(questionnaire.getQuestionnaireid());
-		quData.setQuestionnairenumber(questionnaire.getQuestionnairenumber());
-		quData.setTitle(questionnaire.getTitle());
-		quData.setImage(questionnaire.getImage());
-		quData.setAuthor(questionnaire.getAuthor());
-		quData.setClick(questionnaire.getClick());
-		quData.setDigest(questionnaire.getDigest());
-		quData.setCutofftime(questionnaire.getCutofftime());
-		quData.setStatus(questionnaire.getStatus());
-		quData.setSavetime(questionnaire.getSavetime());
-		quData.setChangetime(questionnaire.getChangetime());
-		quData.setQuestions(questions);
-
-		return quData;
+		for(question item : questions) {
+			if(item.getType().equals("score")) {
+				List<ques> quess = quesService.findQuess(item.getQuestionid());
+				for(ques element : quess) {
+					element.setOptions(optionsService.findOption(element.getQuesid()));
+				}
+				item.setQuess(quess);
+			}else {
+				item.setOptions(optionsService.findOption(item.getQuestionid()));
+			}
+		}
+		questionnaire.setQuestions(questions);
+		
+		return questionnaire;
 	}
 	
 	/**
@@ -115,26 +132,24 @@ public class QuestionnaireController {
 	 * @return
 	 */
 	@RequestMapping("/save")
-	public Result save(@RequestBody quData quData){
+	public Result save(@RequestBody questionnaire quData){
 		try {
-			questionnaire questionnaire = quData;
-			questionnaire.setQuestionnaireid(CreatUUID.uuid());
-			questionnaireService.add(questionnaire);
+			quData.setQuestionnaireid(CreatUUID.uuid());
+			questionnaireService.add(quData);
 			
 			for(question item : quData.getQuestions()) {
 				item.setQuestionid(CreatUUID.uuid());
-				item.setNaireid(questionnaire.getQuestionnaireid());
+				item.setNaireid(quData.getQuestionnaireid());
 				questionService.add(item);
 				if(item.getQuess() != null) {
 					for(ques ques : item.getQuess()) {
 						ques.setQuesid(CreatUUID.uuid());
-						ques.setNaireid(questionnaire.getQuestionnaireid());
+						ques.setNaireid(quData.getQuestionnaireid());
 						ques.setQuestionid(item.getQuestionid());
 						quesService.add(ques);
 					}
 				}
 			}
-			System.out.print(quData.getTitle());
 			return new Result(true, "增加成功");
 		} catch (Exception e) {
 			e.printStackTrace();
