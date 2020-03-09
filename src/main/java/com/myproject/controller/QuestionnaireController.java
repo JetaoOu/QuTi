@@ -49,8 +49,8 @@ public class QuestionnaireController {
 	 * @return
 	 */
 	@RequestMapping("/findAll")
-	public List<questionnaire> findAll(){			
-		return questionnaireService.findAll();
+	public List<questionnaire> findAll(String status){			
+		return questionnaireService.findAll(status);
 	}
 	
 	
@@ -141,12 +141,26 @@ public class QuestionnaireController {
 				item.setQuestionid(CreatUUID.uuid());
 				item.setNaireid(quData.getQuestionnaireid());
 				questionService.add(item);
+				if(item.getOptions() != null) {
+					for(options element : item.getOptions()) {
+						element.setOptionsid(CreatUUID.uuid());
+						element.setQuestionid(item.getQuestionid());
+						optionsService.add(element);
+					}
+				}
 				if(item.getQuess() != null) {
 					for(ques ques : item.getQuess()) {
 						ques.setQuesid(CreatUUID.uuid());
 						ques.setNaireid(quData.getQuestionnaireid());
 						ques.setQuestionid(item.getQuestionid());
 						quesService.add(ques);
+						if(ques.getOptions() != null) {
+							for(options opt : ques.getOptions()) {
+								opt.setOptionsid(CreatUUID.uuid());
+								opt.setQuestionid(ques.getQuesid());
+								optionsService.add(opt);
+							}
+						}		
 					}
 				}
 			}

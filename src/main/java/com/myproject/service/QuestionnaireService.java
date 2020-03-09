@@ -13,9 +13,10 @@ public interface QuestionnaireService {
 
 	/**
 	 * 返回全部列表
+	 * @param status 
 	 * @return
 	 */
-	public List<questionnaire> findAll();
+	public List<questionnaire> findAll(String status);
 	
 	
 	/**

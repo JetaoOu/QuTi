@@ -31,8 +31,21 @@ public class QuestionnaireServiceImpl implements QuestionnaireService {
 	 * 查询全部
 	 */
 	@Override
-	public List<questionnaire> findAll() {
-		return questionnaireMapper.selectByExample(null);
+	public List<questionnaire> findAll(String status) {
+		
+		List<questionnaire> questionnairelist;
+		if(status == null ) {
+			questionnairelist = questionnaireMapper.selectByExample(null);
+		}else {
+			questionnaireExample example=new questionnaireExample();
+			
+			Criteria criteria = example.createCriteria();
+			
+			criteria.andStatusEqualTo(status);
+			
+			questionnairelist = questionnaireMapper.selectByExample(example);
+		}
+		return questionnairelist;
 	}
 
 	/**
