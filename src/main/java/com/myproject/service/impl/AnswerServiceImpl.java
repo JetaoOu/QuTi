@@ -154,5 +154,14 @@ public class AnswerServiceImpl implements AnswerService {
 			Long count = answerMapper.countByExample(answerExample);	
 			return count;	
 		}
+
+		@Override
+		public List<answer> findOption(String optionsid) {
+			answerExample answerExample = new answerExample();
+			Criteria answercriteria = answerExample.createCriteria();
+			answercriteria.andOptionsidEqualTo(optionsid);
+			List<answer> answers = answerMapper.selectByExample(answerExample);	
+			return answers;	
+		}
 	
 }

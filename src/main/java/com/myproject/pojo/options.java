@@ -1,6 +1,6 @@
 package com.myproject.pojo;
 
-import java.util.Date;
+import java.util.List;
 
 import com.myproject.entiy.BaseEntity;
 
@@ -14,8 +14,19 @@ public class options extends BaseEntity{
     private Integer site;
 
     private String type;
+    
+    private List<answer> answers;
+    
+    
+    public List<answer> getAnswers() {
+		return answers;
+	}
 
-    public String getOptionsid() {
+	public void setAnswers(List<answer> answers) {
+		this.answers = answers;
+	}
+
+	public String getOptionsid() {
         return optionsid;
     }
 

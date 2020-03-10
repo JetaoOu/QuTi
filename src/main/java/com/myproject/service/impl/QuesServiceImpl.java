@@ -37,4 +37,10 @@ public class QuesServiceImpl implements QuesService {
 		return quesMapper.selectByExample(example);
 	}
 
+	@Override
+	public void update(ques ques) {
+		quesMapper.updateByPrimaryKey(ques);
+		
+	}
+
 }

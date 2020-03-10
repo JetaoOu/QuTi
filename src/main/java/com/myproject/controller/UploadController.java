@@ -3,15 +3,13 @@ package com.myproject.controller;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 
-import javax.activation.MimetypesFileTypeMap;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -28,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.myproject.entiy.DataDownLoad;
 import com.myproject.service.AnswerService;
 import com.myproject.service.UserService;
 import com.myproject.utils.CreatUUID;
@@ -308,22 +307,37 @@ public class UploadController {
 //				directory.getCanonicalPath(); //得到的是C:/test 
 //				directory.getAbsolutePath();//得到的是C:/test/. 
 //		    String templateFolder = directory.getCanonicalPath();
-
-				ArrayList<String> testList = new ArrayList<String>();
-				testList.add("1.人文社会科学素养、良好职业规范");
-				testList.add("2.数学和其他自然科学知识的应用能力");
-				testList.add("3.计算思维能力");
-				testList.add("4.算法设计与程序实现能力");
-				testList.add("5.计算机应用设计与开发能力");
-				testList.add("6.信息工程项目集成与管理能力");
-				testList.add("7.团队合作与沟通能力");
-				testList.add("8.外文应用与跨文化交流能力");
-				
-				 System.out.println(templateFolder);
-				String ftlName = "模板.ftl";
-				HashMap<String, Object> map = new HashMap<>();
-				map.put("title", "2019届（2015级）毕业生调查问卷结果");
-				map.put("contents", testList);
+		    
+		    
+		   		Random rand=new Random();
+		    	ArrayList<HashMap> rowlist = new ArrayList<HashMap>();
+	    	
+			    for(int j=0 ; j < 5; j++) {
+			    	HashMap<String, Object> row = new HashMap<>();
+			    	ArrayList<String> optlist = new ArrayList<String>();
+			    	
+			    	for(int i=0 ; i < 5; i++) {
+			    		optlist.add(CreatUUID.percent(rand.nextDouble()));
+			    	}
+			    	row.put("content", "1.人文社会科学素养、良好职业规范");
+			    	row.put("avg", "4");
+			    	row.put("optlist", optlist);
+			    	rowlist.add(row);
+			    }
+		 
+		    	DataDownLoad obj = new DataDownLoad();
+		    	obj.setTitle("2019届（2015级）毕业生调查问卷结果");
+		    	obj.setDegest("表1  2019届毕业生认为专业教育目标与学生核心能力关联度");
+		    	obj.setEnd("注：1、表 1 针对的是2015级计算机科学与技术专业，即2019届应届毕业生的问卷调查，实际回收有效问卷数 161份，该表是在该161份问卷调查基础上作出的统计结果。");
+		    	obj.setRowlist(rowlist);
+	    
+		    	HashMap<String, Object> map = new HashMap<>();
+		    	map.put("rowlist", obj.getRowlist());
+		    	map.put("title", obj.getTitle());
+		    	map.put("degest", obj.getDegest());
+		    	map.put("end", obj.getEnd());
+		    		
+		    	String ftlName = "模板.ftl";
 				String root = templateFolder;
 				String title = "test1";
 				//  注意这里的参数，根据你自己业务出入，参数说明上面已经注明！
@@ -334,7 +348,6 @@ public class UploadController {
 		        File file = new File(downLoadPath);	
 		        InputStream inputStream;
 		        inputStream = new BufferedInputStream(new FileInputStream(file));
-		        System.out.println("aaaa");
 	            //通过response将目标文件写到客户端
 	            OutputStream out = response.getOutputStream();	 
 	            // 写文件

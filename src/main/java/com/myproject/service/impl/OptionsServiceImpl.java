@@ -73,6 +73,7 @@ public class OptionsServiceImpl implements OptionsService {
 	@Override
 	public List<options> findOption(String questionid){
 		optionsExample example = new optionsExample();
+		example.setOrderByClause("`site` ASC");
 		Criteria criteria = example.createCriteria();
 		criteria.andQuestionidEqualTo(questionid);
 		return optionsMapper.selectByExample(example);

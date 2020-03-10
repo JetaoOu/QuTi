@@ -69,5 +69,8 @@ public interface AnswerService {
 
 
 	public Long CountOptionID(String optionsid);
+
+
+	public List<answer> findOption(String optionsid);
 	
 }

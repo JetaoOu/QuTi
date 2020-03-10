@@ -78,30 +78,6 @@
 						</w:pPr>
 						<w:r>
 							<w:rPr>
-								<w:rFonts w:eastAsia="仿宋"/>
-								<w:b/>
-								<w:bCs/>
-								<w:color w:val="000000"/>
-								<w:kern w:val="2"/>
-								<w:szCs w:val="24"/>
-								<w:lang w:eastAsia="zh-CN"/>
-							</w:rPr>
-							<w:t>表</w:t>
-						</w:r>
-						<w:r>
-							<w:rPr>
-								<w:rFonts w:eastAsia="仿宋"/>
-								<w:b/>
-								<w:bCs/>
-								<w:color w:val="000000"/>
-								<w:kern w:val="2"/>
-								<w:szCs w:val="24"/>
-								<w:lang w:eastAsia="zh-CN"/>
-							</w:rPr>
-							<w:t>1</w:t>
-						</w:r>
-						<w:r>
-							<w:rPr>
 								<w:rFonts w:eastAsia="仿宋" w:hint="eastAsia"/>
 								<w:b/>
 								<w:bCs/>
@@ -636,7 +612,7 @@
 								</w:p>
 							</w:tc>
 						</w:tr>
-						<#list contents as content>
+						<#list rowlist as row>
 						<w:tr w:rsidR="002A2F83" w14:paraId="12B34FF7" w14:textId="77777777">
 							<w:trPr>
 								<w:trHeight w:val="454"/>
@@ -668,10 +644,11 @@
 												<w:szCs w:val="24"/>
 												<w:lang w:eastAsia="zh-CN"/>
 											</w:rPr>
-											<w:t>${content}</w:t>
+											<w:t>${row.content}</w:t>
 										</w:r>
 								</w:p>
 							</w:tc>
+							<#list row.optlist as opt>
 							<w:tc>
 								<w:tcPr>
 									<w:tcW w:w="992" w:type="dxa"/>
@@ -711,182 +688,11 @@
 											<w:szCs w:val="24"/>
 											<w:lang w:eastAsia="zh-CN"/>
 										</w:rPr>
-										<w:t>46%</w:t>
+										<w:t>${opt}</w:t>
 									</w:r>
 								</w:p>
 							</w:tc>
-							<w:tc>
-								<w:tcPr>
-									<w:tcW w:w="992" w:type="dxa"/>
-									<w:tcBorders>
-										<w:top w:val="single" w:sz="12" w:space="0" w:color="auto"/>
-									</w:tcBorders>
-									<w:shd w:val="clear" w:color="auto" w:fill="auto"/>
-									<w:vAlign w:val="center"/>
-								</w:tcPr>
-								<w:p w14:paraId="6CABCA5B" w14:textId="77777777" w:rsidR="002A2F83" w:rsidRDefault="00992EAE">
-									<w:pPr>
-										<w:widowControl w:val="0"/>
-										<w:tabs>
-											<w:tab w:val="left" w:pos="1200"/>
-											<w:tab w:val="left" w:pos="2268"/>
-											<w:tab w:val="left" w:pos="2410"/>
-											<w:tab w:val="left" w:pos="2552"/>
-											<w:tab w:val="left" w:pos="2694"/>
-											<w:tab w:val="left" w:pos="2835"/>
-											<w:tab w:val="left" w:pos="2977"/>
-											<w:tab w:val="left" w:pos="3261"/>
-										</w:tabs>
-										<w:snapToGrid w:val="0"/>
-										<w:spacing w:after="0"/>
-										<w:jc w:val="center"/>
-										<w:rPr>
-											<w:rFonts w:eastAsia="仿宋"/>
-											<w:color w:val="000000"/>
-											<w:szCs w:val="24"/>
-											<w:lang w:eastAsia="zh-CN"/>
-										</w:rPr>
-									</w:pPr>
-									<w:r>
-										<w:rPr>
-											<w:rFonts w:eastAsia="仿宋" w:hint="eastAsia"/>
-											<w:color w:val="000000"/>
-											<w:szCs w:val="24"/>
-											<w:lang w:eastAsia="zh-CN"/>
-										</w:rPr>
-										<w:t>45.4%</w:t>
-									</w:r>
-								</w:p>
-							</w:tc>
-							<w:tc>
-								<w:tcPr>
-									<w:tcW w:w="992" w:type="dxa"/>
-									<w:tcBorders>
-										<w:top w:val="single" w:sz="12" w:space="0" w:color="auto"/>
-									</w:tcBorders>
-									<w:shd w:val="clear" w:color="auto" w:fill="auto"/>
-									<w:vAlign w:val="center"/>
-								</w:tcPr>
-								<w:p w14:paraId="157EFE98" w14:textId="77777777" w:rsidR="002A2F83" w:rsidRDefault="00992EAE">
-									<w:pPr>
-										<w:widowControl w:val="0"/>
-										<w:tabs>
-											<w:tab w:val="left" w:pos="1200"/>
-											<w:tab w:val="left" w:pos="2268"/>
-											<w:tab w:val="left" w:pos="2410"/>
-											<w:tab w:val="left" w:pos="2552"/>
-											<w:tab w:val="left" w:pos="2694"/>
-											<w:tab w:val="left" w:pos="2835"/>
-											<w:tab w:val="left" w:pos="2977"/>
-											<w:tab w:val="left" w:pos="3261"/>
-										</w:tabs>
-										<w:snapToGrid w:val="0"/>
-										<w:spacing w:after="0"/>
-										<w:jc w:val="center"/>
-										<w:rPr>
-											<w:rFonts w:eastAsia="仿宋"/>
-											<w:color w:val="000000"/>
-											<w:szCs w:val="24"/>
-											<w:lang w:eastAsia="zh-CN"/>
-										</w:rPr>
-									</w:pPr>
-									<w:r>
-										<w:rPr>
-											<w:rFonts w:eastAsia="仿宋" w:hint="eastAsia"/>
-											<w:color w:val="000000"/>
-											<w:szCs w:val="24"/>
-											<w:lang w:eastAsia="zh-CN"/>
-										</w:rPr>
-										<w:t>8%</w:t>
-									</w:r>
-								</w:p>
-							</w:tc>
-							<w:tc>
-								<w:tcPr>
-									<w:tcW w:w="993" w:type="dxa"/>
-									<w:tcBorders>
-										<w:top w:val="single" w:sz="12" w:space="0" w:color="auto"/>
-									</w:tcBorders>
-									<w:shd w:val="clear" w:color="auto" w:fill="auto"/>
-									<w:vAlign w:val="center"/>
-								</w:tcPr>
-								<w:p w14:paraId="43F9D8AC" w14:textId="77777777" w:rsidR="002A2F83" w:rsidRDefault="00992EAE">
-									<w:pPr>
-										<w:widowControl w:val="0"/>
-										<w:tabs>
-											<w:tab w:val="left" w:pos="1200"/>
-											<w:tab w:val="left" w:pos="2268"/>
-											<w:tab w:val="left" w:pos="2410"/>
-											<w:tab w:val="left" w:pos="2552"/>
-											<w:tab w:val="left" w:pos="2694"/>
-											<w:tab w:val="left" w:pos="2835"/>
-											<w:tab w:val="left" w:pos="2977"/>
-											<w:tab w:val="left" w:pos="3261"/>
-										</w:tabs>
-										<w:snapToGrid w:val="0"/>
-										<w:spacing w:after="0"/>
-										<w:jc w:val="center"/>
-										<w:rPr>
-											<w:rFonts w:eastAsia="仿宋"/>
-											<w:color w:val="000000"/>
-											<w:szCs w:val="24"/>
-											<w:lang w:eastAsia="zh-CN"/>
-										</w:rPr>
-									</w:pPr>
-									<w:r>
-										<w:rPr>
-											<w:rFonts w:eastAsia="仿宋" w:hint="eastAsia"/>
-											<w:color w:val="000000"/>
-											<w:szCs w:val="24"/>
-											<w:lang w:eastAsia="zh-CN"/>
-										</w:rPr>
-										<w:t>0.6%</w:t>
-									</w:r>
-								</w:p>
-							</w:tc>
-							<w:tc>
-								<w:tcPr>
-									<w:tcW w:w="725" w:type="dxa"/>
-									<w:tcBorders>
-										<w:top w:val="single" w:sz="12" w:space="0" w:color="auto"/>
-									</w:tcBorders>
-									<w:shd w:val="clear" w:color="auto" w:fill="auto"/>
-									<w:vAlign w:val="center"/>
-								</w:tcPr>
-								<w:p w14:paraId="62FA14F3" w14:textId="77777777" w:rsidR="002A2F83" w:rsidRDefault="00992EAE">
-									<w:pPr>
-										<w:widowControl w:val="0"/>
-										<w:tabs>
-											<w:tab w:val="left" w:pos="1200"/>
-											<w:tab w:val="left" w:pos="2268"/>
-											<w:tab w:val="left" w:pos="2410"/>
-											<w:tab w:val="left" w:pos="2552"/>
-											<w:tab w:val="left" w:pos="2694"/>
-											<w:tab w:val="left" w:pos="2835"/>
-											<w:tab w:val="left" w:pos="2977"/>
-											<w:tab w:val="left" w:pos="3261"/>
-										</w:tabs>
-										<w:snapToGrid w:val="0"/>
-										<w:spacing w:after="0"/>
-										<w:jc w:val="center"/>
-										<w:rPr>
-											<w:rFonts w:eastAsia="仿宋"/>
-											<w:color w:val="000000"/>
-											<w:szCs w:val="24"/>
-											<w:lang w:eastAsia="zh-CN"/>
-										</w:rPr>
-									</w:pPr>
-									<w:r>
-										<w:rPr>
-											<w:rFonts w:eastAsia="仿宋" w:hint="eastAsia"/>
-											<w:color w:val="000000"/>
-											<w:szCs w:val="24"/>
-											<w:lang w:eastAsia="zh-CN"/>
-										</w:rPr>
-										<w:t>0%</w:t>
-									</w:r>
-								</w:p>
-							</w:tc>
+							</#list>
 							<w:tc>
 								<w:tcPr>
 									<w:tcW w:w="1010" w:type="dxa"/>
@@ -925,7 +731,7 @@
 											<w:szCs w:val="24"/>
 											<w:lang w:eastAsia="zh-CN"/>
 										</w:rPr>
-										<w:t>4.37</w:t>
+										<w:t>${row.avg}</w:t>
 									</w:r>
 								</w:p>
 							</w:tc>

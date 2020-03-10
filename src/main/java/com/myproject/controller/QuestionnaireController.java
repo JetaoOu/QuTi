@@ -12,11 +12,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.myproject.entiy.PageResult;
 import com.myproject.entiy.QuestionnaireNum;
 import com.myproject.entiy.Result;
+import com.myproject.pojo.answer;
 import com.myproject.pojo.options;
 import com.myproject.pojo.ques;
 import com.myproject.pojo.question;
 import com.myproject.pojo.questionnaire;
 import com.myproject.pojo.user;
+import com.myproject.service.AnswerService;
 import com.myproject.service.OptionsService;
 import com.myproject.service.QuesService;
 import com.myproject.service.QuestionService;
@@ -43,6 +45,9 @@ public class QuestionnaireController {
 	
 	@Autowired
 	private OptionsService optionsService;
+
+	@Autowired
+	private AnswerService answerService;
 	
 	/**
 	 * 返回全部列表
@@ -126,6 +131,39 @@ public class QuestionnaireController {
 		return questionnaire;
 	}
 	
+	
+	/**
+	 * 获取
+	 * @param questionnaire
+	 * @return
+	 */
+	@RequestMapping("/getTotalDetail")
+	public questionnaire getTotalDetail(String id){
+		questionnaire questionnaire = questionnaireService.findOne(id);	
+		List<question> questions = questionService.findQuestions(id);
+		
+		for(question item : questions) {
+			if(item.getType().equals("score")) {
+				List<ques> quess = quesService.findQuess(item.getQuestionid());
+				for(ques element : quess) {
+					List<options> opts = optionsService.findOption(element.getQuesid());
+					
+					for(options opt : opts) {
+						List<answer> answers = answerService.findOption(opt.getOptionsid());
+						opt.setAnswers(answers);
+					}
+					element.setOptions(opts);
+				}
+				item.setQuess(quess);
+			}else {
+				item.setOptions(optionsService.findOption(item.getQuestionid()));
+			}
+		}
+		questionnaire.setQuestions(questions);
+		
+		return questionnaire;
+	}
+	
 	/**
 	 * 保存
 	 * @param questionnaire
@@ -177,15 +215,42 @@ public class QuestionnaireController {
 	 * @return
 	 */
 	@RequestMapping("/update")
-	public Result update(@RequestBody questionnaire questionnaire){
+	public Result update(@RequestBody questionnaire quData){
 		try {
-			questionnaireService.update(questionnaire);
-			return new Result(true, "修改成功");
+			questionnaireService.update(quData);
+			for(question item : quData.getQuestions()) {
+				questionService.update(item);
+				if(item.getOptions() != null) {
+					for(options element : item.getOptions()) {
+						optionsService.update(element);
+					}
+				}
+				if(item.getQuess() != null) {
+					for(ques ques : item.getQuess()) {
+						quesService.update(ques);
+						if(ques.getOptions() != null) {
+							for(options opt : ques.getOptions()) {
+								optionsService.update(opt);
+							}
+						}		
+					}
+				}
+			}
+			return new Result(true, "增加成功");
 		} catch (Exception e) {
 			e.printStackTrace();
-			return new Result(false, "修改失败");
+			return new Result(false, "增加失败");
 		}
-	}	
+	}
+	
+	
+	@RequestMapping("/updateStatus")
+	public questionnaire updateStatus(String id, String status){
+		questionnaire quData = questionnaireService.findOne(id);
+		quData.setStatus(status);
+		questionnaireService.update(quData);
+		return quData;
+	}
 	
 	/**
 	 * 获取实体

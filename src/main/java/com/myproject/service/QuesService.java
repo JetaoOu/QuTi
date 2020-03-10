@@ -16,6 +16,8 @@ public interface QuesService {
 	public void add(ques ques);
 
 	public List<ques> findQuess(String questionid);
+
+	public void update(ques ques);
 	
 
 
